@@ -357,7 +357,7 @@ Output:
 
 ## Links
 - Deploy Cyclic: https://dindin-back.cyclic.app/
-- Repositório: https://github.com/lanziotti/dindin-back
+- Repositório: https://github.com/lanziotti/Dindin/tree/master/backend
 
 ## Contatos
 - Email: rodrigolanziotti@yahoo.com.br
