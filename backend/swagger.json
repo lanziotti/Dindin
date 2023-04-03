@@ -1,0 +1,756 @@
+{
+    "openapi": "3.0.1",
+    "info": {
+        "title": "Dindin API",
+        "description": "Documentação para a API que possui as seguintes features: - Cadastrar Usuário, Fazer Login, Autentificação do Usuário Logado, Validações do token, Detalhar Perfil do Usuário Logado, Editar Perfil do Usuário Logado, Listar categorias, Listar transações, Detalhar transação, Cadastrar transação, Editar transação, Remover transação, Obter extrato de transações",
+        "version": "1.0.0",
+        "contact": {
+            "email": "rodrigolanziotti@yahoo.com.br"
+        }
+    },
+    "servers": [
+        {
+            "url": "http://localhost:3000",
+            "description": "Servidor local"
+        },
+        {
+            "url": "https://dindin-back.cyclic.app",
+            "description": "Servidor Cyclic"
+        }
+    ],
+    "basePath": "/",
+    "paths": {
+        "/usuario": {
+            "post": {
+                "tags": [
+                    "Usuário"
+                ],
+                "summary": "Cadastro de um usuário",
+                "description": "Essa rota é responsável por cadastrar um novo usuário no sistema",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Usuario"
+                            },
+                            "example": {
+                                "nome": "Maria",
+                                "email": "maria@email.com",
+                                "senha": "maria123"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Usuario"
+                                },
+                                "example": {
+                                    "id": 1,
+                                    "nome": "Maria",
+                                    "email": "maria@email.com"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "mensagem": "Já existe usuário cadastrado com o e-mail informado."
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "get": {
+                "tags": [
+                    "Usuário"
+                ],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "summary": "Detalhar um usuário logado",
+                "description": "Essa rota é responsável por detalhar as informações de um usuário logado no sistema.",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                },
+                                "example": {
+                                    "id": 7,
+                                    "nome": "Raphael Veiga",
+                                    "email": "raphael@email.com"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                },
+                                "example": {
+                                    "mensagem": "Não autorizado."
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Usuário"
+                ],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "summary": "Editar um usuário logado",
+                "description": "Essa rota é responsável por atualizar os dados de um usuário logado no sistema",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Usuario"
+                            },
+                            "example": {
+                                "nome": "Raphael Veiga JR",
+                                "email": "raphael@email.com",
+                                "senha": "raphael123"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "mensagem": "Todos os campos são obrigatórios."
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                },
+                                "example": {
+                                    "mensagem": "Não autorizado."
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/login": {
+            "post": {
+                "tags": [
+                    "Login"
+                ],
+                "summary": "Login do usuário",
+                "description": "Essa rota é responsável por fazer o login do usuário, já cadastrado, no sistema.",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Usuario"
+                            },
+                            "example": {
+                                "email": "raphael@email.com",
+                                "senha": "raphael123"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Usuario"
+                                },
+                                "example": {
+                                    "usuario": {
+                                        "id": 7,
+                                        "nome": "Raphael Veiga",
+                                        "email": "raphael@email.com"
+                                    },
+                                    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NywiaWF0IjoxNjc1ODg3MzA0LCJleHAiOjE2NzU5MTYxMDR9.8DaGEb0efVo0370fpYdb5XrdO_3_Irj9rRmR4GOpPuA"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "mensagem": "Todos os campos são obrigatórios."
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "mensagem": "Usuário e/ou senha inválido(s)."
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/categoria": {
+            "get": {
+                "tags": [
+                    "Categoria"
+                ],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "summary": "Listar categorias",
+                "description": "Essa rota é responsável por listar todas as categorias de transação cadastradas no sistema.",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array"
+                                },
+                                "example": [
+                                    {
+                                        "id": 1,
+                                        "descricao": "Alimentação"
+                                    },
+                                    {
+                                        "id": 2,
+                                        "descricao": "Assinaturas e Serviços"
+                                    },
+                                    {
+                                        "id": 3,
+                                        "descricao": "Casa"
+                                    },
+                                    {
+                                        "id": 4,
+                                        "descricao": "Mercado"
+                                    },
+                                    {
+                                        "id": 5,
+                                        "descricao": "Cuidados Pessoais"
+                                    },
+                                    {
+                                        "id": 6,
+                                        "descricao": "Educação"
+                                    },
+                                    {
+                                        "id": 7,
+                                        "descricao": "Família"
+                                    },
+                                    {
+                                        "id": 8,
+                                        "descricao": "Lazer"
+                                    },
+                                    {
+                                        "id": 9,
+                                        "descricao": "Pets"
+                                    },
+                                    {
+                                        "id": 10,
+                                        "descricao": "Presentes"
+                                    },
+                                    {
+                                        "id": 11,
+                                        "descricao": "Roupas"
+                                    },
+                                    {
+                                        "id": 12,
+                                        "descricao": "Saúde"
+                                    },
+                                    {
+                                        "id": 13,
+                                        "descricao": "Transportes"
+                                    },
+                                    {
+                                        "id": 14,
+                                        "descricao": "Salário"
+                                    },
+                                    {
+                                        "id": 15,
+                                        "descricao": "Vendas"
+                                    },
+                                    {
+                                        "id": 16,
+                                        "descricao": "Outras receitas"
+                                    },
+                                    {
+                                        "id": 17,
+                                        "descricao": "Outras despesas"
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                },
+                                "example": {
+                                    "mensagem": "Não autorizado."
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/transacao": {
+            "post": {
+                "tags": [
+                    "Transação"
+                ],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "summary": "Cadastro de uma transação",
+                "description": "Essa rota é responsável por cadastrar uma transação, de um usuário logado, no sistema.",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Transacao"
+                            },
+                            "example": {
+                                "tipo": "saida",
+                                "descricao": "Banho dog",
+                                "valor": 600,
+                                "data": "2022-08-31T15:30:00.000Z",
+                                "categoria_id": 9
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Transacao"
+                                },
+                                "example": {
+                                    "id": 8,
+                                    "tipo": "saida",
+                                    "descricao": "Banho dog",
+                                    "valor": 600,
+                                    "data": "2022-08-31T15:30:00.000Z",
+                                    "usuario_id": 7,
+                                    "categoria_id": 9,
+                                    "categoria_nome": "Pets"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "mensagem": "Todos os campos são obrigatórios."
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                },
+                                "example": {
+                                    "mensagem": "Não autorizado."
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "get": {
+                "tags": [
+                    "Transação"
+                ],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "summary": "Listar transações",
+                "description": "Essa rota é responsável por listar todas as transações do usuário logado.",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array"
+                                },
+                                "example": [
+                                    {
+                                        "id": 8,
+                                        "descricao": "Banho dog",
+                                        "valor": 600,
+                                        "data": "2022-08-31T15:30:00.000Z",
+                                        "categoria_id": 9,
+                                        "usuario_id": 7,
+                                        "tipo": "saida",
+                                        "categoria_nome": "Pets"
+                                    },
+                                    {
+                                        "id": 9,
+                                        "descricao": "Venda cervejas",
+                                        "valor": 1500,
+                                        "data": "2022-09-05T12:35:00.000Z",
+                                        "categoria_id": 16,
+                                        "usuario_id": 7,
+                                        "tipo": "entrada",
+                                        "categoria_nome": "Outras receitas"
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                },
+                                "example": {
+                                    "mensagem": "Não autorizado."
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/transacao/{id}": {
+            "put": {
+                "tags": [
+                    "Transação"
+                ],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "summary": "Editar uma transação",
+                "description": "Essa rota é responsável por atualizar os dados de uma transação, de um usuário logado, feita anteriormente.",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Transacao"
+                            },
+                            "example": {
+                                "tipo": "saida",
+                                "descricao": "Banho dog",
+                                "valor": 600,
+                                "data": "2022-08-31T15:30:00.000Z",
+                                "categoria_id": 9
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID da transação",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "mensagem": "Todos os campos são obrigatórios."
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                },
+                                "example": {
+                                    "mensagem": "Não autorizado."
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "mensagem": "A transação não existe."
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "get": {
+                "tags": [
+                    "Transação"
+                ],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "summary": "Detalhar uma transação",
+                "description": "Essa rota é responsável por detalhar uma transação específica do usuário logado.",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID da transação",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Transacao"
+                                },
+                                "example": {
+                                    "id": 9,
+                                    "tipo": "entrada",
+                                    "descricao": "Venda cervejas",
+                                    "valor": 1500,
+                                    "data": "2022-09-05T12:35:00.000Z",
+                                    "usuario_id": 7,
+                                    "categoria_id": 16,
+                                    "categoria_nome": "Outras receitas"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                },
+                                "example": {
+                                    "mensagem": "Não autorizado."
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "mensagem": "A transação não existe."
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Transação"
+                ],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "summary": "Excluir uma transação",
+                "description": "Essa rota é responsável por deletar uma transação, do usuário logado, do sistema.",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID da transação",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                },
+                                "example": {
+                                    "mensagem": "Não autorizado."
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "mensagem": "A transação não existe."
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/transacao/extrato": {
+            "get": {
+                "tags": [
+                    "Transação"
+                ],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "summary": "Consulta de Extrato",
+                "description": "Essa rota é responsável por mostrar o extrato de transações do usuário logado.",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                },
+                                "example": {
+                                    "entrada": 0,
+                                    "saida": 600
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                },
+                                "example": {
+                                    "mensagem": "Não autorizado."
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Usuario": {
+                "type": "object",
+                "properties": {
+                    "nome": {
+                        "type": "string"
+                    },
+                    "email": {
+                        "type": "string"
+                    },
+                    "senha": {
+                        "type": "string"
+                    }
+                }
+            },
+            "Transacao": {
+                "type": "object",
+                "properties": {
+                    "tipo": {
+                        "type": "string"
+                    },
+                    "descricao": {
+                        "type": "string"
+                    },
+                    "valor": {
+                        "type": "number"
+                    },
+                    "data": {
+                        "type": "date"
+                    },
+                    "categoria_id": {
+                        "type": "integer"
+                    }
+                }
+            }
+        },
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "scheme": "bearer",
+                "bearerFormat": "JWT"
+            }
+        }
+    }
+}
