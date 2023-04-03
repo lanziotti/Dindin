@@ -1,0 +1,30 @@
+.backdrop {
+    background-color: rgba(61, 61, 61, 0.48);
+    
+    position: absolute;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@media only screen and (max-width: 1174px) {
+    .backdrop {
+        min-width: 122vw;
+        min-height: 187vh;
+    }
+}
+
+@media only screen and (max-width: 852px) {
+    .backdrop {
+        width: 120vw;
+        min-height: 132vh;
+    }
+}
+
+@media only screen and (max-width: 778px) {
+    .backdrop {
+        min-width: 302vw;
+        min-height: 302vh;
+    }
+}

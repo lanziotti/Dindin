@@ -1,0 +1,50 @@
+button {
+    all: unset;
+    box-sizing: border-box;
+    cursor: pointer;
+    width: 100%;
+    border-radius: 0.5rem;
+
+    font-size: 1.4rem;
+    font-weight: bold;
+    font-family: 'Rubik', sans-serif;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 0 1.4rem;
+}
+
+.btn-extra-small {
+    height: 3.8rem;
+}
+
+.btn-small {
+    height: 4.2rem;
+}
+
+.btn-big {
+    height: 4.8rem;
+}
+
+.btn-purple {
+    background-color: #7978D9;
+    color: white;
+}
+
+.btn-blue {
+    background-color: #3A9FF1;
+    color: white;
+}
+
+.btn-red {
+    background-color: #FF576B;
+    color: white;
+}
+
+.btn-white {
+    background-color: #FAFAFA;
+    color: #000;
+    box-shadow: 0px 2px 11px rgba(0, 0, 0, 0.1);
+}

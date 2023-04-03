@@ -1,0 +1,30 @@
+.logo {
+    height: 4rem;
+    position: absolute;
+    left: 5rem;
+    top: 4rem;
+}
+
+.container-inputs {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-top: 2.4rem;
+}
+
+.container-inputs label {
+    color: #484848;
+    font-family: 'Rubik', sans-serif;
+    margin-bottom: 0.8rem;
+}
+
+.width-limit {
+    width: 100%;
+    max-width: 150rem;
+}
+
+@media only screen and (max-width: 410px) {
+    .container-inputs {
+        margin-top: 1rem;
+    }
+}

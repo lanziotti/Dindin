@@ -1,0 +1,51 @@
+.container-resume {
+    width: 26rem;
+    min-height: 19.6rem;
+
+    color: #2F2F2F;
+    background-color: #FAFAFA;
+    box-shadow: 0px 2px 11px rgba(0, 0, 0, 0.1);
+    border-radius: 1rem;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    padding: 2.4rem 2.4rem 3.2rem 2.4rem;
+    font-family: 'Rubik', sans-serif;
+}
+
+.container-resume h1 {
+    margin-bottom: 2.4rem;
+    width: 100%;
+    text-align: left;
+}
+
+.line-resume {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    width: 100%;
+    margin-bottom: 1rem;
+    font-weight: 500;
+}
+
+.horizontal-line {
+    width: 100%;
+    border-bottom: 1px solid #EAEAEA;
+    margin: 1.6rem 0;
+}
+
+.in {
+    color: #645FFB;
+}
+
+.out {
+    color: #FA8C10;
+}
+
+.resume {
+    color: #3A9FF1;
+}
