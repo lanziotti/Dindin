@@ -68,7 +68,7 @@ Projeto feito para a conclusão do módulo 03 do Curso de Desenvolvimento de Sof
 
 ## Links
 - Deploy na Vercel (acesse o programa por aqui): https://dindin-phi.vercel.app
-- Repositório: https://github.com/lanziotti/dindin-front
+- Repositório: https://github.com/lanziotti/Dindin/tree/master/frontend
 
 ## Contatos
 - Email: rodrigolanziotti@yahoo.com.br  
